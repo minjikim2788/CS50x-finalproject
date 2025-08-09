@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Income
+{% endblock %}
+
+{% block main %}
+    <h2>Income</h2>
+    <br>
+    <form action="/income" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="amount" placeholder="Amount" type="text">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" name="description" placeholder="Description" type="text">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" name="date" placeholder="Date" type="date">
+        </div>
+        <button class="btn btn-primary" type="submit">Add to income</button>
+    </form>
+    <br>
+    <br>
+    <br>
+    <h3>History of Income</h3>
+    <br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Description</th>
+            <th scope="col">Amount</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for indata in indatas %}
+            <tr>
+                <td>{{ indata.date }}</td>
+                <td>{{ indata.description }}</td>
+                <td>${{ indata.money }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfooter>
+            {% for total in total %}
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Total income:</th>
+                <th scope="col">${{ total.sum }}</th>
+            </tr>
+            {% endfor %}
+        </tfooter>
+    </table>
+{% endblock %}

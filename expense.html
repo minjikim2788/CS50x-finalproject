@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Expense
+{% endblock %}
+
+{% block main %}
+
+    <h2>Expense</h2>
+    <br>
+    <form action="/expense" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="amount" placeholder="Amount" type="text">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" name="description" placeholder="Description" type="text">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" name="date" placeholder="Date" type="date">
+        </div>
+        <button class="btn btn-primary" type="submit">Add to expenditure</button>
+    </form>
+    <br>
+    <br>
+    <br>
+    <h3>History of Expense</h3>
+    <br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Description</th>
+            <th scope="col">Amount</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for exdata in exdatas %}
+            <tr>
+                <td>{{ exdata.date }}</td>
+                <td>{{ exdata.description }}</td>
+                <td>${{ exdata.money }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfooter>
+            {% for total in total %}
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Total expenditure:</th>
+                <th scope="col">${{ total.sum }}</th>
+            </tr>
+            {% endfor %}
+        </tfooter>
+    </table>
+
+
+{% endblock %}

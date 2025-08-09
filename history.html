@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <h2>History of transactions</h2>
+    <br>
+    <div class="dropdown">
+        <form action="/history" method="post">
+            <select name="month">
+                <option value="" disabled selected>Select Month</option>
+                {% for date in dates %}
+                <div><option value = "{{ date.month }}">{{ date.month }}</option></div>
+                {% endfor %}
+            </select>
+            <button class="btn" type="submit">Filter</button>
+        </form>
+    </div>
+    <br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Transaction Type</th>
+                <th scope="col">Description</th>
+                <th scope="col">Amout</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.date }}</td>
+                <td>{{ transaction.type }}</td>
+                <td>{{ transaction.description }}</td>
+                <td>${{ transaction.money }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfooter>
+            {% for totale in totale %}
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Total income:</th>
+                <th scope="col">${{ totale.sum }}</th>
+            </tr>
+            {% endfor %}
+            {% for totals in totals %}
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Total expenditure:</th>
+                <th scope="col">${{ totals.sum }}</th>
+            </tr>
+            {% endfor %}
+            {% for balance in balance %}
+            <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col">Balance:</th>
+                <th scope="col">${{ balance.balance }}</th>
+            </tr>
+            {% endfor %}
+        </tfooter>
+    </table>
+{% endblock %}
